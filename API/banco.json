@@ -1,14 +1,45 @@
 {
-  "alunos": [
+  "teachers": [
     {
       "id": 1,
-      "nome": "Joao",
-      "sobrenome": "Silva"
+      "name": "John"
     },
     {
       "id": 2,
+      "name": "Paula"
+    },
+    {
+      "id": 3,
+      "name": "Carla"
+    }
+  ],
+  "alunos": [
+    {
+      "id": 2,
       "nome": "Maria",
-      "sobrenome": "Joaquina"
+      "sobrenome": "Joaquina",
+      "teacher": {
+        "id": 1,
+        "name": "John"
+      }
+    },
+    {
+      "nome": "asdasd asd asd a",
+      "sobrenome": "",
+      "teacher": {
+        "id": 3,
+        "name": "Carla"
+      },
+      "id": 3
+    },
+    {
+      "nome": "oi oi",
+      "sobrenome": "",
+      "teacher": {
+        "id": 2,
+        "name": "Paula"
+      },
+      "id": 4
     }
   ]
 }

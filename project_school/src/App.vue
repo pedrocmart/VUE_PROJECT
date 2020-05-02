@@ -1,16 +1,26 @@
 <template>
   <div id="app">
-    <Alunos />
+    <Nav></Nav>
+    <div class="mainMargin">
+      <router-view :key="$route.fullPath"></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-import Alunos from "./components/Aluno/Alunos.vue";
+import Alunos from "./components/Aluno/Alunos";
+import Teachers from "./components/Teacher/Teachers";
+import About from "./components/About/About";
+import Nav from "./components/_nav/Nav";
 
 export default {
   name: "App",
   components: {
+    /* eslint-disable vue/no-unused-components */
     Alunos,
+    Teachers,
+    About,
+    Nav,
   },
 };
 </script>
@@ -29,15 +39,27 @@ html {
   margin: 0;
   height: 100%;
 }
+
+.mainMargin {
+  width: 50%;
+  margin: auto;
+}
+
 #app {
+  width: 100%;
 }
 
 .btn {
-  background-color: #fa4430;
   border: 1px solid black;
   padding: 10px 20px;
   color: white;
+  font-size: 1.4em;
   border-radius: 5px;
+}
+
+.btnDanger {
+  font-size: 0.8em;
+  background-color: #fa4430;
 }
 
 .btn:hover {
@@ -65,5 +87,8 @@ table thead th {
 }
 .colPequeno {
   width: 5%;
+  text-align: right;
+  background-color: rgb(125, 217, 245);
+  font-weight: bold;
 }
 </style>
