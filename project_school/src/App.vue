@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Alunos from "./components/Aluno/Alunos";
+import Students from "./components/Student/Students";
 import Teachers from "./components/Teacher/Teachers";
 import About from "./components/About/About";
 import Nav from "./components/_nav/Nav";
@@ -17,7 +17,7 @@ export default {
   name: "App",
   components: {
     /* eslint-disable vue/no-unused-components */
-    Alunos,
+    Students,
     Teachers,
     About,
     Nav,
@@ -85,7 +85,7 @@ table thead th {
   padding: 10px 0px;
   text-align: center !important;
 }
-.colPequeno {
+.colSmall {
   width: 5%;
   text-align: right;
   background-color: rgb(125, 217, 245);

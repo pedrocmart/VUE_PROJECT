@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Title from "../_shared/Titulo";
+import Title from "../_shared/Title";
 export default {
   components: {
     Title,

@@ -1,0 +1,38 @@
+{
+  "teachers": [
+    {
+      "id": 1,
+      "name": "John"
+    },
+    {
+      "id": 2,
+      "name": "Paula"
+    },
+    {
+      "id": 3,
+      "name": "Carla"
+    }
+  ],
+  "students": [
+    {
+      "id": 2,
+      "name": "Mary",
+      "lastname": "Poppins",
+      "dtBirth": "01/01/2001",
+      "teacher": {
+        "id": 2,
+        "name": "Paula"
+      }
+    },
+    {
+      "id": 5,
+      "name": "Test",
+      "lastname": "McTest",
+      "dtBirth": "19/12/1954",
+      "teacher": {
+        "id": 1,
+        "name": "John"
+      }
+    }
+  ]
+}

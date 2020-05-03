@@ -9,9 +9,9 @@
       </thead>
       <tbody>
         <tr v-for="(teacher, index) in teachers" :key="index">
-          <td class="colPequeno">{{ teacher.id }}</td>
+          <td class="colSmall">{{ teacher.id }}</td>
 
-          <router-link v-bind:to="`/aluno/${teacher.id}`" tag="td" style="cursor: pointer">
+          <router-link v-bind:to="`/student/${teacher.id}`" tag="td" style="cursor: pointer">
             {{ teacher.name }} {{ teacher.lastname }}
           </router-link>
           <td>
@@ -21,14 +21,14 @@
       </tbody>
       <!-- poderia ser com v-else, caso o if fosse na tag anterior a esta -->
       <tfoot v-if="!teachers.length">
-        Nenhum teacher Encontrado!
+        No Teachers were found!
       </tfoot>
     </table>
   </div>
 </template>
 
 <script>
-import Title from "../_shared/Titulo";
+import Title from "../_shared/Title";
 
 export default {
   components: {
@@ -37,15 +37,15 @@ export default {
   data() {
     return {
       teachers: [],
-      Alunos: [],
+      Students: [],
     };
   },
   created() {
     this.$http
-      .get("http://localhost:3000/alunos")
+      .get("http://localhost:3000/students")
       .then((res) => res.json())
-      .then((alunos) => {
-        this.Alunos = alunos;
+      .then((students) => {
+        this.Students = students;
         this.loadTeachers();
       });
   },
@@ -56,8 +56,8 @@ export default {
         teacher = {
           id: teacher.id,
           name: teacher.name,
-          qtyStudents: this.Alunos.filter(
-            (aluno) => aluno.teacher.id == teacher.id
+          qtyStudents: this.Students.filter(
+            (student) => student.teacher.id == teacher.id
           ).length,
         };
         this.teachers[index] = teacher;

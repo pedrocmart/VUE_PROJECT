@@ -1,46 +1,46 @@
 <!-- vbase -->
 <template>
   <div>
-    <Titulo :texto="`Aluno: ${aluno.nome}`" :btnBack="!view">
+    <Title :texto="`Student: ${student.name}`" :btnBack="!view">
       <button v-show="view" @click="loadEditMode()" class="btn btnEdit">
         Edit
       </button>
-    </Titulo>
+    </Title>
 
     <table>
       <tbody>
         <tr>
-          <td class="colPequeno">Matricula:</td>
+          <td class="colSmall">Code:</td>
           <td>
-            <label>{{ aluno.id }}</label>
+            <label>{{ student.id }}</label>
           </td>
         </tr>
         <tr>
-          <td class="colPequeno">Nome:</td>
+          <td class="colSmall">Name:</td>
           <td>
-            <label v-if="view">{{ aluno.nome }}</label>
-            <input v-else type="text" v-model="aluno.nome" />
+            <label v-if="view">{{ student.name }}</label>
+            <input v-else type="text" v-model="student.name" />
           </td>
         </tr>
         <tr>
-          <td class="colPequeno">Sobrenome:</td>
+          <td class="colSmall">Lastname:</td>
           <td>
-            <label v-if="view">{{ aluno.sobrenome }}</label>
-            <input v-else type="text" v-model="aluno.sobrenome" />
+            <label v-if="view">{{ student.lastname }}</label>
+            <input v-else type="text" v-model="student.lastname" />
           </td>
         </tr>
         <tr>
-          <td class="colPequeno">Data Nascimento:</td>
+          <td class="colSmall">Date of Birth:</td>
           <td>
-            <label v-if="view">{{ aluno.dtNasc }}</label>
-            <input v-else type="text" v-model="aluno.dtNasc" />
+            <label v-if="view">{{ student.dtBirth }}</label>
+            <input v-else type="text" v-model="student.dtBirth" />
           </td>
         </tr>
         <tr>
-          <td class="colPequeno">Teacher:</td>
+          <td class="colSmall">Teacher:</td>
           <td>
-            <label v-if="view">{{ aluno.teacher.name }}</label>
-            <select v-else v-model="aluno.teacher">
+            <label v-if="view">{{ student.teacher.name }}</label>
+            <select v-else v-model="student.teacher">
               <option
                 v-for="teacher in teachers"
                 :key="teacher.id"
@@ -55,7 +55,7 @@
     </table>
     <div style="margin-top: 10px">
       <div v-if="!view">
-        <button class="btn btnSave" @click="save(aluno)">Save</button>
+        <button class="btn btnSave" @click="save(student)">Save</button>
         <button class="btn btnCancel" @click="cancel()">Cancel</button>
       </div>
     </div>
@@ -63,20 +63,20 @@
 </template>
 
 <script>
-import Titulo from "../_shared/Titulo";
+import Title from "../_shared/Title";
 
 export default {
   components: {
-    Titulo,
+    Title,
   },
   data() {
-    return { aluno: {}, id: this.$route.params.id, teachers: [], view: true };
+    return { student: {}, id: this.$route.params.id, teachers: [], view: true };
   },
   created() {
     this.$http
-      .get("http://localhost:3000/alunos/" + this.id)
+      .get("http://localhost:3000/students/" + this.id)
       .then((res) => res.json())
-      .then((aluno) => (this.aluno = aluno));
+      .then((student) => (this.student = student));
 
     this.$http
       .get("http://localhost:3000/teachers")
@@ -92,13 +92,13 @@ export default {
     save(_student) {
       let _edition = {
         id: _student.id,
-        nome: _student.nome,
-        sobrenome: _student.sobrenome,
-        dtNasc: _student.dtNasc,
+        name: _student.name,
+        lastname: _student.lastname,
+        dtBirth: _student.dtBirth,
         teacher: _student.teacher,
       };
 
-      this.$http.put(`http://localhost:3000/alunos/${_edition.id}`, _edition);
+      this.$http.put(`http://localhost:3000/students/${_edition.id}`, _edition);
       this.view = !this.view;
     },
     cancel() {
@@ -109,7 +109,7 @@ export default {
 </script>
 
 <style scoped>
-.colPequeno {
+.colSmall {
   width: 20%;
 }
 

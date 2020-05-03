@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Alunos from './components/Aluno/Alunos';
+import Students from './components/Student/Students';
 import Teachers from './components/Teacher/Teachers';
 import About from './components/About/About';
-import AlunoDetalhe from './components/Aluno/AlunoDetalhe'
+import StudentDetail from './components/Student/StudentDetail'
 
 Vue.use(Router);
 
@@ -16,19 +16,19 @@ export default new Router(
                 component: Teachers
             },
             {
-                path: '/Aluno/:teacher_id',
-                name: 'Alunos',
-                component: Alunos
+                path: '/Student/:teacher_id',
+                name: 'Students',
+                component: Students
             },
             {
-                path: '/alunosall',
-                name: 'Alunos',
-                component: Alunos
+                path: '/studentsall',
+                name: 'Students',
+                component: Students
             },
             {
-                path: '/alunoDetalhe/:id',
-                name: 'AlunoDetalhe',
-                component: AlunoDetalhe
+                path: '/studentDetail/:id',
+                name: 'StudentDetail',
+                component: StudentDetail
             },
             {
                 path: '/About',
