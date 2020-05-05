@@ -19,3 +19,9 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# .NetCore / EF Files
+bin
+obj
+/DesignTimeBuild
+ProjectSchool_API/.vs/ProjectSchool_API/DesignTimeBuild/
