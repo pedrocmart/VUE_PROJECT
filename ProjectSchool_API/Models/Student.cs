@@ -10,7 +10,6 @@ namespace ProjectSchool_API.Models
         public string Lastname { get; set; }
         public string DtBirth { get; set; }
         public int TeacherId { get; set; }
-
         public Teacher Teacher { get; set; }
     }
 }

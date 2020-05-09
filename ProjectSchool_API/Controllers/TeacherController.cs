@@ -1,4 +1,8 @@
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectSchool_API.Data;
+using ProjectSchool_API.Models;
 
 namespace ProjectSchool_API.Controllers
 {
@@ -6,40 +10,107 @@ namespace ProjectSchool_API.Controllers
     [ApiController]
     public class TeacherController : Controller
     {
-        public TeacherController()
+        public IRepository _repository { get; }
+        public TeacherController(IRepository repository)
         {
+            _repository = repository;
 
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok();
+            try
+            {
+                var result = await _repository.GetAllTeachersAsync(true);
+                return Ok(result);
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database failed");
+            }
         }
 
         [HttpGet("{teacherId}")]
-        public IActionResult Get(int teacherId)
+        public async Task<IActionResult> GetTeacherById(int teacherId)
         {
-            return Ok();
+            try
+            {
+                var result = await _repository.GetTeacherAsyncById(teacherId, true);
+                return Ok(result);
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database failed");
+            }
         }
 
         [HttpPost]
-        public IActionResult Post()
+        public async Task<IActionResult> Post(Teacher model)
         {
-            return Ok();
+            try
+            {
+                _repository.Add(model);
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Created($"/api/teacher/{model.ID}", model);
+                }
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database failed");
+            }
+
+            return BadRequest();
         }
 
         [HttpPut("{teacherId}")]
-        public IActionResult Put(int teacherId)
+        public async Task<IActionResult> Put(int teacherId, Teacher model)
         {
-            return Ok();
+            Teacher student = await _repository.GetTeacherAsyncById(teacherId, false);
 
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            _repository.Update(model);
+
+            if (await _repository.SaveChangesAsync())
+            {
+                student = await _repository.GetTeacherAsyncById(teacherId, true);
+                return Created($"/api/student/{model.ID}", student);
+            }
+
+            return BadRequest();
         }
 
         [HttpDelete("{teacherId}")]
-        public IActionResult Delete(int teacherId)
+        public async Task<IActionResult> Delete(int teacherId)
         {
-            return Ok();
+            try
+            {
+                Teacher teacher = await _repository.GetTeacherAsyncById(teacherId, false);
+
+                if (teacher == null)
+                {
+                    return NotFound();
+                }
+
+                _repository.Delete(teacher);
+
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Ok();
+                }
+
+                return BadRequest();
+            }
+            catch (System.Exception)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database failed");
+            }
         }
     }
 }
